@@ -11,4 +11,4 @@ VulnEye is an open-source Automated CVE Tracker that fetches public CVE data (NV
 ## Quickstart
 1. Clone the repo
 2. Install Python dependencies
-3. Run `vulneye.py` with your asset inventory
+3. Run `python -m src.vulneye --inventory assets/sample_inventory.json --output docs/vulnerability_report.html` with your asset inventory
