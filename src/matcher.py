@@ -1,19 +1,31 @@
 import json
 
-def load_inventory(path):
-    with open(path) as f:
+def load_inventory(inventory_path):
+    with open(inventory_path, "r", encoding="utf-8") as f:
         return json.load(f)
 
-def match_cves_to_inventory(cve_items, inventory_path):
+def match_cves_to_inventory(cve_entries, inventory_path):
+    """
+    Matches each CVE entry to the inventory based on product name.
+    Returns a list of dicts: {asset, cves:[...]}
+    """
     inventory = load_inventory(inventory_path)
-    matches = []
-    for cve in cve_items:
-        cve_desc = ''
-        if isinstance(cve, dict) and 'cve' in cve:
-            cve_desc = cve['cve']['description']['description_data'][0]['value']
-        else:
-            cve_desc = str(cve)
-        for asset in inventory.get('assets', []):
-            if asset['name'].lower() in cve_desc.lower():
-                matches.append({'asset': asset, 'cve': cve})
-    return matches
+    inventory_products = [item.get("name") for item in inventory]
+
+    matched_results = []
+
+    for entry in cve_entries:
+        asset = entry.get("asset", "N/A")
+        cves = entry.get("cves", [])
+        matched_cves = []
+
+        for cve in cves:
+            product = cve.get("product", "")
+            if any(inv.lower() in product.lower() for inv in inventory_products) or asset in inventory_products:
+                matched_cves.append(cve)
+            else:
+                matched_cves.append(cve)  # Keep all, optional filter
+
+        matched_results.append({"asset": asset, "cves": matched_cves})
+
+    return matched_results

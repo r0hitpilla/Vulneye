@@ -1,6 +1,6 @@
-{
-  "assets": [
-    {"name": "openssl", "version": "3.0.0"},
-    {"name": "nginx", "version": "1.25.0"}
-  ]
-}
+[
+    {"name": "apache", "version": "2.4.57"},
+    {"name": "php", "version": "8.2"},
+    {"name": "mysql", "version": "8.0"},
+    {"name": "openssl", "version": "3.0.0"}
+]
