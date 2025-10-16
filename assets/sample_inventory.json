@@ -1,0 +1,6 @@
+{
+  "assets": [
+    {"name": "openssl", "version": "3.0.0"},
+    {"name": "nginx", "version": "1.25.0"}
+  ]
+}
